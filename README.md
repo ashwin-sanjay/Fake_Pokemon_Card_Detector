@@ -38,7 +38,7 @@ The pipeline of the project is as follows:
 2. **Image Preprocessing**
 
 - Each of the images are loaded from the constructed AD dataset, read in the correct format (RGB) to prepare for producing tensors, and are normalized using ImageNet mean and standard deviation (best suited for PatchCore, the anomaly detection model which will be used)
-- Tensors are produced from these images of shape (3, H, W) which means that each image is represented using 3 channels of $H \times W$ matrices (R, G, B), which are appropriate for usage with PatchCore, which uses a pretrained CNN backbone.
+- Tensors are produced from these images of shape (3, H, W) which means that each image is represented using 3 channels of $$H \times W$$ matrices (R, G, B), which are appropriate for usage with PatchCore, which uses a pretrained CNN backbone.
 
 3. **Train PatchCore (Anomaly Detection Model)**
 
@@ -63,32 +63,32 @@ The pipeline of the project is as follows:
 
 ## 1 Problem Formulation and Dataset Construction
 
-- Let $\mathcal{X} = \{0,\dots,255\}^{H\times W \times 3}$ denote the space of RGB images.
--  Let $x \in \mathcal{X}$ denote a card image.
-- Let $y_{\text{raw}} \in \{0,1\}$ denote the original Kaggle label, with $y_{\text{raw}}=1$ for real and $y_{\text{raw}}=0$ for fake.
-- Let $y \in \{0,1\}$ denote the anomaly-detection label, with $y=0$ for normal ("real") and y=1 for anomalous ("fake"), so $y = 1 - y_{\text{raw}}$.
-- Let $\mathcal{D}_{train}=\{x_i∣y_i=0\}$ denote the training set, which defines what *normal* looks like to the model
-- Let $\mathcal{D}_{val}=\{x_j,y_j\}$ denote the validation set, which is primarily used to choose a decision threshold
-- Let $\mathcal{D}_{test}=\{x_k,y_k\}$ which is used to evaluate the final performance
+- Let $$\mathcal{X} = \{0,\dots,255\}^{H\times W \times 3}$$ denote the space of RGB images.
+-  Let $$x \in \mathcal{X}$$ denote a card image.
+- Let $$y_{\text{raw}} \in \{0,1\}$$ denote the original Kaggle label, with $$y_{\text{raw}}=1$$ for real and $$y_{\text{raw}}=0$$ for fake.
+- Let $$y \in \{0,1\}$$ denote the anomaly-detection label, with $$y=0$$ for normal ("real") and y=1 for anomalous ("fake"), so $$y = 1 - y_{\text{raw}}$$.
+- Let $$\mathcal{D}_{train}=\{x_i∣y_i=0\}$$ denote the training set, which defines what *normal* looks like to the model
+- Let $$\mathcal{D}_{val}=\{x_j,y_j\}$$ denote the validation set, which is primarily used to choose a decision threshold
+- Let $$\mathcal{D}_{test}=\{x_k,y_k\}$$ which is used to evaluate the final performance
 
 ## 2 Preprocessing and Data Model
 
-- **Resizing:** Each image is resized to $H=256,\;W=256$
-- **Pixel Normalization:** Each pixel is converted to a floating-point number between 0 and 1 according to $x'_{h,w,c} = \frac{x_{h,w,c}}{255}.$
+- **Resizing:** Each image is resized to $$H=256,\;W=256$$
+- **Pixel Normalization:** Each pixel is converted to a floating-point number between 0 and 1 according to $$x'_{h,w,c} = \frac{x_{h,w,c}}{255}.$$
 - **ImageNet Normalization:** Each channel is normalized using standard ImageNet statistics (these values are standard values from literature)
-  - $\mu=(0.485, 0.456, 0.406),\;  
-    \sigma=(0.229, 0.224, 0.225)$
-  - $\tilde{x}_{h,w,c} = \frac{x'_{h,w,c} - \mu_c}{\sigma_c}$
-- **Tensor Format Input for PyTorch:** The final input to the network after preprocessing is $\tilde{x} \in \mathbb{R}^{3 \times H \times W}.$
+  - $$\mu=(0.485, 0.456, 0.406),\;  
+    \sigma=(0.229, 0.224, 0.225)$$
+  - $$\tilde{x}_{h,w,c} = \frac{x'_{h,w,c} - \mu_c}{\sigma_c}$$
+- **Tensor Format Input for PyTorch:** The final input to the network after preprocessing is $$\tilde{x} \in \mathbb{R}^{3 \times H \times W}.$$
 - **Mask:** No pixel-level masks exist. Thus, image masks are created by treating every pixel in anomalous images as anomalous and every pixel in normal images as non-anomalous. This is actually quite robust for the setup, because the images in the dataset have very little background and counterfeit Pokemon cards have fundamentally different printing processes which will likely create anomalous characteristics across the entire printing surface.
-  - Let  $x = \tilde{x}$ denote the normalized image tensor
-  - Let  $y \in \{0,1\}$ denote the anomaly label
-  - Let $M$ denote the mask.
-  - Each loaded item into the network is a triple $(x, y, M)$
-  - $M = \begin{cases}  
+  - Let  $$x = \tilde{x}$$ denote the normalized image tensor
+  - Let  $$y \in \{0,1\}$$ denote the anomaly label
+  - Let $$M$$ denote the mask.
+  - Each loaded item into the network is a triple $$(x, y, M)$$
+  - $$M = \begin{cases}  
     0_{1\times H \times W}, & y = 0 \\  
     1_{1\times H \times W}, & y = 1  
-    \end{cases}$
+    \end{cases}$$
 - The lack of pixel-level masks means that anomaly heatmaps later computed will indicate qualitative anomalousness rather than pixel-level anomalous detail detected
 
 ## 3 PatchCore
@@ -97,27 +97,27 @@ The pipeline of the project is as follows:
 - This experiment used Wide ResNet because this task benefits from high channel capacity, detecting fine texture, print artifacts, and small color deviations, so ResNet18 was found to be suboptimal for the task
 - Additionally, Layers 2-4 were utilized because Layer 2 encodes fine local statistics like subtle printing differences, Layer 3 encodes "mesoscopic structure" like coherent but incorrect printing structure, and Layer 4 encodes global coherence, allowing locally normal but globally inconsistent prints.
 - Layer 1 was discarded because it is too fine grained and added too much overhead and risk of overfitting/false positives to justify.
-- Let $f$ be the CNN backbone and $\mathcal{L} = \{\ell_2, \ell_3, \ell_4\}$ be the layers from which features are extracted
+- Let $$f$$ be the CNN backbone and $$\mathcal{L} = \{\ell_2, \ell_3, \ell_4\}$$ be the layers from which features are extracted
 - **Feature Layers:** Each layer produces a feature map 
-  - $F^{(\ell)} = f^{(\ell)}(\tilde{x})  
-    \in \mathbb{R}^{C_\ell \times H_\ell \times W_\ell}$
+  - $$F^{(\ell)} = f^{(\ell)}(\tilde{x})  
+    \in \mathbb{R}^{C_\ell \times H_\ell \times W_\ell}$$
 - And flattening each spatial location produces patch vectors:
-  - $P^{(\ell)}(\tilde{x}) \in \mathbb{R}^{N_\ell \times C_\ell},\; N_\ell = H_\ell W_\ell$
-- **Patch Embedding Set:** Features from layers $\ell_2,\ell_3,\ell_4$ are then spatially aligned to a common resolution and concatenated at each corresponding location to form a single multi-scale embedding vector for every image patch.
-  - $Z(\tilde{x}) = \{ z_p \in \mathbb{R}^d \mid p \in \mathcal{P} \}$ where each $z_p$ describes one patch of image $\tilde{x}$.
+  - $$P^{(\ell)}(\tilde{x}) \in \mathbb{R}^{N_\ell \times C_\ell},\; N_\ell = H_\ell W_\ell$$
+- **Patch Embedding Set:** Features from layers $$\ell_2,\ell_3,\ell_4$$ are then spatially aligned to a common resolution and concatenated at each corresponding location to form a single multi-scale embedding vector for every image patch.
+  - $$Z(\tilde{x}) = \{ z_p \in \mathbb{R}^d \mid p \in \mathcal{P} \}$$ where each $$z_p$$ describes one patch of image $$\tilde{x}$$.
 - **Memory Bank (Coreset)**: All patch embeddings are gathered from normal training images:
-  - $\mathcal{Z} = \bigcup_{x_i \in \mathcal{D}_{\text{train}}} Z(\tilde{x}_i)  
-    = \{ z_1, z_2, \dots, z_{N_p} \}$
+  - $$\mathcal{Z} = \bigcup_{x_i \in \mathcal{D}_{\text{train}}} Z(\tilde{x}_i)  
+    = \{ z_1, z_2, \dots, z_{N_p} \}$$
 - The distance between two patch embeddings is calculated using the euclidean norm:
-  - $d(u,v) = \|u - v\|_2$
-- PatchCore selects a subset $M\subset \mathcal{Z}$ of size $|M| = \lfloor \rho N_p \rfloor$.  This experiment chose $\rho=0.1$ as a good tradeoff between performance and computational overhead for this specific dataset and the hardware constraints. This is the *memory bank* of normal patches. (According to the paper, patch embeddings are subsampled using greedy farthest-point coreset selection in feature space to preserve coverage of the normal manifold)
-- **Patch-Level Anomaly Score:** To find the patch level anomaly score given a new test image $\tilde{x}$ 
-  - Patch embeddings are computed using $Z(\tilde{x}) = \{z_p\}$
-  - The nearest memory patch for embedding is calculated $m_{p,1} = \arg\min_{m \in M} d(z_p, m).$
-  - The distance function is used to calculate how anomalous the image is: $a_p = d(z_p, m_{p,1}).$ In other words, how anomalous an image is is represented by how far the model "thinks" the image is from the learned manifold of *normal* images in feature space. (According to the paper, Patch embeddings are $\ell_2$-normalized prior to nearest-neighbor distance computation.)
+  - $$d(u,v) = \|u - v\|_2$$
+- PatchCore selects a subset $$M\subset \mathcal{Z}$$ of size $$|M| = \lfloor \rho N_p \rfloor$$.  This experiment chose $$\rho=0.1$$ as a good tradeoff between performance and computational overhead for this specific dataset and the hardware constraints. This is the *memory bank* of normal patches. (According to the paper, patch embeddings are subsampled using greedy farthest-point coreset selection in feature space to preserve coverage of the normal manifold)
+- **Patch-Level Anomaly Score:** To find the patch level anomaly score given a new test image $$\tilde{x}$$ 
+  - Patch embeddings are computed using $$Z(\tilde{x}) = \{z_p\}$$
+  - The nearest memory patch for embedding is calculated $$m_{p,1} = \arg\min_{m \in M} d(z_p, m).$$
+  - The distance function is used to calculate how anomalous the image is: $$a_p = d(z_p, m_{p,1}).$$ In other words, how anomalous an image is is represented by how far the model "thinks" the image is from the learned manifold of *normal* images in feature space. (According to the paper, Patch embeddings are $$\ell_2$$-normalized prior to nearest-neighbor distance computation.)
 - **Heatmap:** Heatmaps are constructed by expanding the image back to full dimensions and producing a pixel-level image where brightness indicates how anomalous PatchCore "thinks" that patch is. 
 - **Image-Level Score:** The image-level score is computed by utilizing the score of the most anomalous patch. This makes sense because anomalies may be highly localized, and an anomalous image is seen as anomalous due to its anomalous areas, not just how "abnormal the image looks *on average*":
-  -  $s(x) = \max_{p\in\mathcal{P}} a_p.$
+  -  $$s(x) = \max_{p\in\mathcal{P}} a_p.$$
 
 [1] K. Roth, L. Pemula, J. Zepeda, B. Schölkopf, T. Brox, and P. Gehler, “Towards Total Recall in Industrial Anomaly Detection,” in *Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)*, 2022, pp. 14298–14308, doi: 10.1109/CVPR52688.2022.01392.
 
@@ -126,23 +126,23 @@ The pipeline of the project is as follows:
 ## 4 Evaluation Metrics
 
 - Evaluation metrics are calculated using anomaly scores and labels:
-  - $\{(s_i,y_i)\}_{i=1}^n,$
-- Let $\tau$ denote the threshold.
-- **Classification at Threshold:** The prediction rule is $\hat{y}_i(\tau) = \mathbf{1}[ s_i \ge \tau ]$ (indicator function). True positives (TP), false positives (FP), true negatives (TN), and false negatives (FN) are all computed using this rule.
-- **True Positive Ratio and False Positive Ratio:** These are computed accordingly: $\mathrm{TPR}(\tau) = \frac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FN}}, \;  
-  \mathrm{FPR}(\tau) = \frac{\mathrm{FP}}{\mathrm{FP} + \mathrm{TN}}.$
-- **ROC and AUC**: The "receiver operating characteristic" or "ROC" curve plots $(\mathrm{TPR}(\tau), \mathrm{FPR}(\tau))$ as $\tau$ varies and the AUC is the area under this curve. The curve characterizes the trade-off between true-positive rate and false-positive rate across thresholds.  The AUC is a scalar summary of this curve and equals the probability that a randomly chosen positive sample has a higher score than a randomly chosen negative sample. The following indicates how AUC generally informs perception of a model:
+  - $$\{(s_i,y_i)\}_{i=1}^n,$$
+- Let $$\tau$$ denote the threshold.
+- **Classification at Threshold:** The prediction rule is $$\hat{y}_i(\tau) = \mathbf{1}[ s_i \ge \tau ]$$ (indicator function). True positives (TP), false positives (FP), true negatives (TN), and false negatives (FN) are all computed using this rule.
+- **True Positive Ratio and False Positive Ratio:** These are computed accordingly: $$\mathrm{TPR}(\tau) = \frac{\mathrm{TP}}{\mathrm{TP} + \mathrm{FN}}, \;  
+  \mathrm{FPR}(\tau) = \frac{\mathrm{FP}}{\mathrm{FP} + \mathrm{TN}}.$$
+- **ROC and AUC**: The "receiver operating characteristic" or "ROC" curve plots $$(\mathrm{TPR}(\tau), \mathrm{FPR}(\tau))$$ as $$\tau$$ varies and the AUC is the area under this curve. The curve characterizes the trade-off between true-positive rate and false-positive rate across thresholds.  The AUC is a scalar summary of this curve and equals the probability that a randomly chosen positive sample has a higher score than a randomly chosen negative sample. The following indicates how AUC generally informs perception of a model:
   - **0.5**: No discrimination (random chance).
   - **0.5 - 0.6**: Poor.
   - **0.6 - 0.7**: Fair/Poor (varies).
   - **0.7 - 0.8**: Moderate/Fair/Good (varies).
   - **0.8 - 0.9**: Good.
   - **0.9 - 1.0**: Excellent. 
-- **Youden’s J Statistic:** $J(\tau)$ computes at threshold $\tau$ the vertical distance between the ROC curve and the chance line (think the ROC curve of a "coin flip" style model), measuring how well positives are separated from negatives at that model according to $J(\tau) = \mathrm{TPR}(\tau) - \mathrm{FPR}(\tau).$
-- **Best Threshold:** $\tau^*$ selects the decision threshold that maximizes this separation according to $\tau^\star = \arg\max_\tau J(\tau)$  such that true positives are maximized and false positives are minimized
-- **Precision and Recall:** Precision measures the fraction of predicted positives that are correct according to $\mathrm{Precision} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}}$ and recall measures the fraction of true positives that are successfully detected according to $\mathrm{Recall} = \mathrm{TPR}$.
-- **F1 Score:** The F1 score is found by taking the harmonic mean of precision and recall, which penalizes imbalance between the two according to $\mathrm{F1} = \frac{2 \cdot \mathrm{Precision} \cdot \mathrm{Recall}}  
-  {\mathrm{Precision} + \mathrm{Recall}}.$
+- **Youden’s J Statistic:** $$J(\tau)$$ computes at threshold $$\tau$$ the vertical distance between the ROC curve and the chance line (think the ROC curve of a "coin flip" style model), measuring how well positives are separated from negatives at that model according to $$J(\tau) = \mathrm{TPR}(\tau) - \mathrm{FPR}(\tau).$$
+- **Best Threshold:** $$\tau^*$$ selects the decision threshold that maximizes this separation according to $$\tau^\star = \arg\max_\tau J(\tau)$$  such that true positives are maximized and false positives are minimized
+- **Precision and Recall:** Precision measures the fraction of predicted positives that are correct according to $$\mathrm{Precision} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}}$$ and recall measures the fraction of true positives that are successfully detected according to $$\mathrm{Recall} = \mathrm{TPR}$$.
+- **F1 Score:** The F1 score is found by taking the harmonic mean of precision and recall, which penalizes imbalance between the two according to $$\mathrm{F1} = \frac{2 \cdot \mathrm{Precision} \cdot \mathrm{Recall}}  
+  {\mathrm{Precision} + \mathrm{Recall}}.$$
 
 
 
@@ -177,11 +177,11 @@ The pipeline of the project is as follows:
 ## 2 Statistical Meaning
 
 - Test set size:  
-    - $n_1 = 28$ counterfeits (positives),  
-    - $n_0 = 50$ genuine cards (negatives).
-    - Observed AUC: $\hat{A} = 0.95$.
+    - $$n_1 = 28$$ counterfeits (positives),  
+    - $$n_0 = 50$$ genuine cards (negatives).
+    - Observed AUC: $$\hat{A} = 0.95$$.
 - Using the standard Hanley–McNeil asymptotic variance for AUC, this sample size yields a rough 95% confidence interval of [0.89,1.00]
-  - $\mathrm{Var}(\hat{A}) = \frac{ \hat{A}(1-\hat{A}) + (n_1 - 1)(Q_1 - \hat{A}^2) + (n_0 - 1)(Q_2 - \hat{A}^2) }{ n_1 n_0 }$
+  - $$\mathrm{Var}(\hat{A}) = \frac{ \hat{A}(1-\hat{A}) + (n_1 - 1)(Q_1 - \hat{A}^2) + (n_0 - 1)(Q_2 - \hat{A}^2) }{ n_1 n_0 }$$
 - This is statistically high, and strongly suggests the results are not a fluke arising from noise:
   - The lower bound is far above random chance (0.5)
   - Even accounting for sampling variability, the model's ranking performance is in the "strong separation" category
@@ -198,18 +198,18 @@ This gap reflects *threshold sensitivity* not a failure of the underlying detect
 
 **Why AUC is stable under class imbalance:**
 
-- AUC depends only on the relative ordering of scores $\text{AUC} = P(s(x_{\text{fake}}) > s(x_{\text{real}}))$
+- AUC depends only on the relative ordering of scores $$\text{AUC} = P(s(x_{\text{fake}}) > s(x_{\text{real}}))$$
 - This is independent of both class prevalence and decision thresholds
 - Thus, if the score distributions retain roughly the same shape and overlap structure, AUC remains stable even when the class mix changes substantially, which explains why Validation and Test AUC values agreed within sampling error
 
 **Why F1 is not stable under class imbalance:**
 
-- F1 is defined as $\text{F1} = \frac{2\,\text{TP}}{2\,\text{TP} + \text{FP} + \text{FN}}$, where each term depends on *absolute counts*, not just rates
+- F1 is defined as $$\text{F1} = \frac{2\,\text{TP}}{2\,\text{TP} + \text{FP} + \text{FN}}$$, where each term depends on *absolute counts*, not just rates
 - Under a lower presence of anomalous images:
   - The same false positive rate yields less true positives relative to false positives
-  - Precision decreases even if recall is unchanged: $\mathrm{Precision} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}},\; \mathrm{Recall} = \mathrm{TPR}$.
-  - Small absolute changes in $\mathrm{FP}$ and $\mathrm{FN}$ have a larger proportional effect.
-- Thus, when moving from Validation to Test, τ* produces similar score separations, but the balance between $\mathrm{FP}$ and $\mathrm{FN}$ shifts, which leads to a noticeable drop in F1. 
+  - Precision decreases even if recall is unchanged: $$\mathrm{Precision} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}},\; \mathrm{Recall} = \mathrm{TPR}$$.
+  - Small absolute changes in $$\mathrm{FP}$$ and $$\mathrm{FN}$$ have a larger proportional effect.
+- Thus, when moving from Validation to Test, τ* produces similar score separations, but the balance between $$\mathrm{FP}$$ and $$\mathrm{FN}$$ shifts, which leads to a noticeable drop in F1. 
 - We can then say that this is a property of the metric, not of the model degrading.
 
 # Significance
@@ -218,9 +218,9 @@ This gap reflects *threshold sensitivity* not a failure of the underlying detect
 
 The results demonstrate that the model learns a compact manifold of genuine card appearance using only 200 real examples, and counterfeit cards fall outside this manifold with high probability. Importantly, detection is driven by local deviations (patch-level features), not global memorization. 
 
-AUC $\approx$ 0.95 means that ranking cards by anomaly score is highly reliable. Even though in this experiment the class imbalance led to poorer F1 scores and thus binary separation, ranking remained strong, which means that the system seems to be well-suited for *triage*, where high-score cards are set aside for manual inspection (rather than making binary decisions using the model).
+AUC $$\approx$$ 0.95 means that ranking cards by anomaly score is highly reliable. Even though in this experiment the class imbalance led to poorer F1 scores and thus binary separation, ranking remained strong, which means that the system seems to be well-suited for *triage*, where high-score cards are set aside for manual inspection (rather than making binary decisions using the model).
 
-Additionally, "post-hoc" thresholding can be done to match cost or prevalence assumptions, which is shown by the experiment to be plausibly viable, since the validation set showed a strong $\mathrm{F1} \approx 0.95$ when thresholding was tuned on the validation set operating regime.
+Additionally, "post-hoc" thresholding can be done to match cost or prevalence assumptions, which is shown by the experiment to be plausibly viable, since the validation set showed a strong $$\mathrm{F1} \approx 0.95$$ when thresholding was tuned on the validation set operating regime.
 
 ## 2 Methodological Significance
 
@@ -230,7 +230,7 @@ This experiment did not perform a closed-set classification; no counterfeit labe
 
 The anomaly detection formulation explored in this project is not specific to Pokemon cards (or even other trading cards), and extends naturally to other domains with similar structural properties. A particularly close analogue is detection of counterfeit coins (numismatic counterfeit detection).
 
-It has been observed that in online numismatic communities like Reddit, users frequently upload photographs of coins in order to solicit opinions regarding the authenticity of their coins. The judgements made by other users are often noisy, dependent on subjective expertise, limited by image quality, and are often met with quips regarding the infeasibility of assessing authenticity from a noisy photo alone. In professional settings, coin shops and collectors often rely on either expensive equipment (such as Sigma Metalytics testers, which are often $2,000 or more) or destructive/semi-destructive methods (like drilling, cutting, or chemical testing) to assess composition and authenticity. These approaches impose financial cost and physical risk to the asset, and destructive/semi-destructive methods are generally severely frowned-upon by the community. 
+It has been observed that in online numismatic communities like Reddit, users frequently upload photographs of coins in order to solicit opinions regarding the authenticity of their coins. The judgements made by other users are often noisy, dependent on subjective expertise, limited by image quality, and are often met with quips regarding the infeasibility of assessing authenticity from a noisy photo alone. In professional settings, coin shops and collectors often rely on either expensive equipment (such as Sigma Metalytics testers, which are often $$2,000 or more) or destructive/semi-destructive methods (like drilling, cutting, or chemical testing) to assess composition and authenticity. These approaches impose financial cost and physical risk to the asset, and destructive/semi-destructive methods are generally severely frowned-upon by the community. 
 
 The experimental setup in this project aligns closely with the coin-authentication problem, under the assumption that each model is trained only on one type of coin and only a single specimen is observed at a time. Similar to Pokemon cards:
 
