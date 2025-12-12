@@ -242,7 +242,7 @@ $$\mathrm{F1} = \frac{2 \cdot \mathrm{Precision} \cdot \mathrm{Recall}}{\mathrm{
 _Figure 3. Metrics for Validation Set_
 \
 \
-\
+
 * **Test Performance using best threshold from Validation**: (i.e. deployment setting)
     
 
@@ -251,7 +251,7 @@ _Figure 3. Metrics for Validation Set_
 _Figure 4. Metrics for Test set using Validation threshold_
 \
 \
-\
+
 * **Test Performance using Test-set-optimized best threshold**: (theoretical best, i.e. "oracle upper bound")
     
 
