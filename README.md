@@ -1,7 +1,5 @@
 # **Unsupervised Counterfeit Detection of Pokemon Trading Cards via Patch-Based Anomaly Detection**
 
-[TOC]
-
 # Introduction
 
 ## 1 Problem Statement
@@ -66,7 +64,7 @@ The pipeline of the project is as follows:
 ## 1 Problem Formulation and Dataset Construction
 
 - Let $\mathcal{X} = \{0,\dots,255\}^{H\times W \times 3}$ denote the space of RGB images.
-- Let $x \in \mathcal{X}$ denote a card image.
+-  Let $x \in \mathcal{X}$ denote a card image.
 - Let $y_{\text{raw}} \in \{0,1\}$ denote the original Kaggle label, with $y_{\text{raw}}=1$ for real and $y_{\text{raw}}=0$ for fake.
 - Let $y \in \{0,1\}$ denote the anomaly-detection label, with $y=0$ for normal ("real") and y=1 for anomalous ("fake"), so $y = 1 - y_{\text{raw}}$.
 - Let $\mathcal{D}_{train}=\{x_i∣y_i=0\}$ denote the training set, which defines what *normal* looks like to the model
@@ -179,9 +177,9 @@ The pipeline of the project is as follows:
 ## 2 Statistical Meaning
 
 - Test set size:  
-  - $n_1 = 28$ counterfeits (positives),  
-  - $n_0 = 50$ genuine cards (negatives).
-  - Observed AUC: $\hat{A} = 0.95$.
+    - $n_1 = 28$ counterfeits (positives),  
+    - $n_0 = 50$ genuine cards (negatives).
+    - Observed AUC: $\hat{A} = 0.95$.
 - Using the standard Hanley–McNeil asymptotic variance for AUC, this sample size yields a rough 95% confidence interval of [0.89,1.00]
   - $\mathrm{Var}(\hat{A}) = \frac{ \hat{A}(1-\hat{A}) + (n_1 - 1)(Q_1 - \hat{A}^2) + (n_0 - 1)(Q_2 - \hat{A}^2) }{ n_1 n_0 }$
 - This is statistically high, and strongly suggests the results are not a fluke arising from noise:
