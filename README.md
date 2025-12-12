@@ -243,8 +243,7 @@ _Figure 3. Metrics for Validation Set_
 \
 \
 \
-\
-* **Test Performance using best threshold from Validation**: (i.e. deployment setting)
+\* **Test Performance using best threshold from Validation**: (i.e. deployment setting)
     
 
 ![image-20251212104814092](https://private-user-images.githubusercontent.com/13025381/526070401-8a1f61e0-3ff2-417b-a2d8-f956374fba2f.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzA0MDEtOGExZjYxZTAtM2ZmMi00MTdiLWEyZDgtZjk1NjM3NGZiYTJmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTA0ZTJhNDYwMWEzYjYwMWM0YjgyMTlkMzhkMmNmZjU5YWQ3OGI5MDNlMWVjOWI1Y2IwN2U5YmNjZDgxMmI0N2ImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.v9x0eoQQ6HK8tX3s7Qb8vi-7BquoA6QYHoUE4Y6EZ3Y)
@@ -253,8 +252,7 @@ _Figure 4. Metrics for Test set using Validation threshold_
 \
 \
 \
-\
-* **Test Performance using Test-set-optimized best threshold**: (theoretical best, i.e. "oracle upper bound")
+\* **Test Performance using Test-set-optimized best threshold**: (theoretical best, i.e. "oracle upper bound")
     
 
 ![image-20251212104951800](https://private-user-images.githubusercontent.com/13025381/526070447-8732be1c-7096-427f-a5e4-098c75434889.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzA0NDctODczMmJlMWMtNzA5Ni00MjdmLWE1ZTQtMDk4Yzc1NDM0ODg5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTg4YTg0ODk1ZWE1YzNiOGQxNzVkNzUyOTQ3OGMxMDc4YjNlZDgwMWU0ZGY1MmM3Nzc2MmY4ZWFmZDFkNTM1OGYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.bbNFlE-6hdcn0vzMIzbioMpGnZ1dQUdkFGnohmRiDV0)
