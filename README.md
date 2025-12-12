@@ -88,7 +88,11 @@ The pipeline of the project is as follows:
 
 * **Resizing:** Each image is resized to $H=256,;W=256$
     
-* **Pixel Normalization:** Each pixel is converted to a floating-point number between 0 and 1 according to $x'_{h,w,c} = \frac{x_{h,w,c}}{255}.$
+* **Pixel Normalization:** Each pixel is converted to a floating-point number between 0 and 1 according to
+
+$$
+x'_{h,w,c} = \frac{x_{h,w,c}}{255}
+$$
     
 * **ImageNet Normalization:** Each channel is normalized using standard ImageNet statistics (these values are standard values from literature)
   
@@ -237,12 +241,16 @@ $$\mathrm{F1} = \frac{2 \cdot \mathrm{Precision} \cdot \mathrm{Recall}}{\mathrm{
 
 _Figure 3. Metrics for Validation Set_
 
+
+
 * **Test Performance using best threshold from Validation**: (i.e. deployment setting)
     
 
 ![image-20251212104814092](https://private-user-images.githubusercontent.com/13025381/526070401-8a1f61e0-3ff2-417b-a2d8-f956374fba2f.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzA0MDEtOGExZjYxZTAtM2ZmMi00MTdiLWEyZDgtZjk1NjM3NGZiYTJmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTA0ZTJhNDYwMWEzYjYwMWM0YjgyMTlkMzhkMmNmZjU5YWQ3OGI5MDNlMWVjOWI1Y2IwN2U5YmNjZDgxMmI0N2ImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.v9x0eoQQ6HK8tX3s7Qb8vi-7BquoA6QYHoUE4Y6EZ3Y)
 
 _Figure 4. Metrics for Test set using Validation threshold_
+
+
 
 * **Test Performance using Test-set-optimized best threshold**: (theoretical best, i.e. "oracle upper bound")
     
