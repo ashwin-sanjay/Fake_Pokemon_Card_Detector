@@ -91,12 +91,10 @@ The pipeline of the project is as follows:
 * **Pixel Normalization:** Each pixel is converted to a floating-point number between 0 and 1 according to $x'_{h,w,c} = \frac{x_{h,w,c}}{255}.$
     
 * **ImageNet Normalization:** Each channel is normalized using standard ImageNet statistics (these values are standard values from literature)
+  
 $$
+\tilde{x}_{h,w,c} = \frac{x'_{h,w,c} - \mu_c}{\sigma_c}\\
 \mu=(0.485, 0.456, 0.406),\; \sigma=(0.229, 0.224, 0.225)
-$$
-
-$$
-\tilde{x}_{h,w,c} = \frac{x'_{h,w,c} - \mu_c}{\sigma_c}
 $$
         
 * **Tensor Format Input for PyTorch:** The final input to the network after preprocessing is $\tilde{x} \in \mathbb{R}^{3 \times H \times W}.$
