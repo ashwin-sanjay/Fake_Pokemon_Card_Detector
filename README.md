@@ -240,14 +240,18 @@ $$\mathrm{F1} = \frac{2 \cdot \mathrm{Precision} \cdot \mathrm{Recall}}{\mathrm{
 ![image-20251212104551707](https://private-user-images.githubusercontent.com/13025381/526070373-648fee44-1552-4f00-8b85-facf4a22ad36.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzAzNzMtNjQ4ZmVlNDQtMTU1Mi00ZjAwLThiODUtZmFjZjRhMjJhZDM2LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTJkYzE0MmMxNTRlMzg5YTMzZjA5OTE2ZTM3OWRkYWQwMDk2ZmNmYjhjOWY3NTY0ZmExNjUyYjY0NmZhYjBmYjUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.KZqiz_LPdI2BYKaGgI39XfQClKxYoKMrMZ9JPw0_7mg)
 
 _Figure 3. Metrics for Validation Set_
-<br/>
+\
+\
+\
 * **Test Performance using best threshold from Validation**: (i.e. deployment setting)
     
 
 ![image-20251212104814092](https://private-user-images.githubusercontent.com/13025381/526070401-8a1f61e0-3ff2-417b-a2d8-f956374fba2f.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzA0MDEtOGExZjYxZTAtM2ZmMi00MTdiLWEyZDgtZjk1NjM3NGZiYTJmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTA0ZTJhNDYwMWEzYjYwMWM0YjgyMTlkMzhkMmNmZjU5YWQ3OGI5MDNlMWVjOWI1Y2IwN2U5YmNjZDgxMmI0N2ImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.v9x0eoQQ6HK8tX3s7Qb8vi-7BquoA6QYHoUE4Y6EZ3Y)
 
 _Figure 4. Metrics for Test set using Validation threshold_
-<br/>
+\
+\
+\
 * **Test Performance using Test-set-optimized best threshold**: (theoretical best, i.e. "oracle upper bound")
     
 
