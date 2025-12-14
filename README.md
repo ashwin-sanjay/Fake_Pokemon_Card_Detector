@@ -16,11 +16,11 @@ The question to be addressed then is whether an unsupervised learning method whi
 
 To answer this question, the scope of this project is to implement and evaluate how well an anomaly detection pipeline can separate real and fake Pokemon cards. Importantly, the creator of the dataset explicitly states that the cards are nontrivial for humans only moderately familiar with Pokemon cards to classify, which means that sufficient performance on this dataset indicates potential for aiding humans in counterfeit detection itself rather than simply allowing for automation.
 
-![402](https://private-user-images.githubusercontent.com/13025381/526070916-8edaa748-c3b3-4cc6-ae33-e4ec9939d98c.JPG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzA5MTYtOGVkYWE3NDgtYzNiMy00Y2M2LWFlMzMtZTRlYzk5MzlkOThjLkpQRz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWYxZTBmODg3NjBhODlmMDMzNjMwYzIwZDA3MTk1ZjdiYWUzNWU1MjI3NGI4MzBkYzI0NGZiMDEyYmFiZTQ4MWMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.bAg0ifNSBtkV4uu9GiAnVEIAsyvQdGELC0NYOBHWuE0)
+![402](https://ashwin-sanjay.github.io/Fake_Pokemon_Card_Detector/images/402.JPG)
 
 _Figure 1. Example of a "real" Pokemon card from the dataset (402.JPG)_
 
-![383](https://private-user-images.githubusercontent.com/13025381/526070732-e4879e91-1838-45f3-880c-7526f6cd255d.JPG?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzA3MzItZTQ4NzllOTEtMTgzOC00NWYzLTg4MGMtNzUyNmY2Y2QyNTVkLkpQRz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTI0ZWJkZGNmMDc0ZTJjZWM3YWI0ZWQ2OWRjYWNlYmViNjFhNDQ5ODdjY2ZlZjNjYTZiZWEyMzBkMjA5YWJlYjYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.9VqCUjPRTF91G3HKoXpvDEAeO52JpZm8bJbUIWziDSU)
+![383](https://ashwin-sanjay.github.io/Fake_Pokemon_Card_Detector/images/383.JPG)
 
 _Figure 2. Example of a "fake" Pokemon card from the dataset (383.JPG)_
 
@@ -237,7 +237,7 @@ $$\mathrm{F1} = \frac{2 \cdot \mathrm{Precision} \cdot \mathrm{Recall}}{\mathrm{
 * **Validation Performance:** (mixed normal and anomalous):
     
 
-![image-20251212104551707](https://private-user-images.githubusercontent.com/13025381/526070373-648fee44-1552-4f00-8b85-facf4a22ad36.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzAzNzMtNjQ4ZmVlNDQtMTU1Mi00ZjAwLThiODUtZmFjZjRhMjJhZDM2LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTJkYzE0MmMxNTRlMzg5YTMzZjA5OTE2ZTM3OWRkYWQwMDk2ZmNmYjhjOWY3NTY0ZmExNjUyYjY0NmZhYjBmYjUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.KZqiz_LPdI2BYKaGgI39XfQClKxYoKMrMZ9JPw0_7mg)
+![image-20251212104551707](https://ashwin-sanjay.github.io/Fake_Pokemon_Card_Detector/images/image-20251212104551707.png)
 
 _Figure 3. Metrics for Validation Set_
 \
@@ -246,7 +246,7 @@ _Figure 3. Metrics for Validation Set_
 \* **Test Performance using best threshold from Validation**: (i.e. deployment setting)
     
 
-![image-20251212104814092](https://private-user-images.githubusercontent.com/13025381/526070401-8a1f61e0-3ff2-417b-a2d8-f956374fba2f.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzA0MDEtOGExZjYxZTAtM2ZmMi00MTdiLWEyZDgtZjk1NjM3NGZiYTJmLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTA0ZTJhNDYwMWEzYjYwMWM0YjgyMTlkMzhkMmNmZjU5YWQ3OGI5MDNlMWVjOWI1Y2IwN2U5YmNjZDgxMmI0N2ImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.v9x0eoQQ6HK8tX3s7Qb8vi-7BquoA6QYHoUE4Y6EZ3Y)
+![image-20251212104814092](https://ashwin-sanjay.github.io/Fake_Pokemon_Card_Detector/images/image-20251212104814092.png)
 
 _Figure 4. Metrics for Test set using Validation threshold_
 \
@@ -255,7 +255,7 @@ _Figure 4. Metrics for Test set using Validation threshold_
 \* **Test Performance using Test-set-optimized best threshold**: (theoretical best, i.e. "oracle upper bound")
     
 
-![image-20251212104951800](https://private-user-images.githubusercontent.com/13025381/526070447-8732be1c-7096-427f-a5e4-098c75434889.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjU1NzM2MTAsIm5iZiI6MTc2NTU3MzMxMCwicGF0aCI6Ii8xMzAyNTM4MS81MjYwNzA0NDctODczMmJlMWMtNzA5Ni00MjdmLWE1ZTQtMDk4Yzc1NDM0ODg5LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTEyMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUxMjEyVDIxMDE1MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTg4YTg0ODk1ZWE1YzNiOGQxNzVkNzUyOTQ3OGMxMDc4YjNlZDgwMWU0ZGY1MmM3Nzc2MmY4ZWFmZDFkNTM1OGYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.bbNFlE-6hdcn0vzMIzbioMpGnZ1dQUdkFGnohmRiDV0)
+![image-20251212104951800](https://ashwin-sanjay.github.io/Fake_Pokemon_Card_Detector/images/image-20251212104951800.png)
 
 _Figure 5. Metrics for Test set using Test-set optimized threshold_
 
